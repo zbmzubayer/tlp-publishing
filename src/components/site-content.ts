@@ -45,37 +45,32 @@ export const socialLinks: SocialLink[] = [
   {
     label: "Facebook",
     href: "https://www.facebook.com/profile.php?id=61587838196052",
-    image:
-      "https://stcdn.leadconnectorhq.com/funnel/icons/square/facebook-square.svg",
+    image: "https://stcdn.leadconnectorhq.com/funnel/icons/square/facebook-square.svg",
     shortLabel: "Fb",
   },
   {
     label: "Instagram",
     href: "https://www.instagram.com/tlp.publishing/",
-    image:
-      "https://stcdn.leadconnectorhq.com/funnel/icons/square/instagram-square.svg",
+    image: "https://stcdn.leadconnectorhq.com/funnel/icons/square/instagram-square.svg",
     shortLabel: "Ig",
   },
   {
     label: "TikTok",
     href: "https://www.tiktok.com/@tlppublishing",
-    image:
-      "https://stcdn.leadconnectorhq.com/funnel/icons/square/tiktok-square.svg",
+    image: "https://stcdn.leadconnectorhq.com/funnel/icons/square/tiktok-square.svg",
 
     shortLabel: "Tk",
   },
   {
     label: "YouTube",
     href: "https://www.youtube.com/@TLPPublishing",
-    image:
-      "https://stcdn.leadconnectorhq.com/funnel/icons/square/youtube-square.svg",
+    image: "https://stcdn.leadconnectorhq.com/funnel/icons/square/youtube-square.svg",
     shortLabel: "Yt",
   },
   {
     label: "Pinterest",
     href: "https://www.pinterest.com/TLPpublishing/",
-    image:
-      "https://stcdn.leadconnectorhq.com/funnel/icons/square/pinterest-square.svg",
+    image: "https://stcdn.leadconnectorhq.com/funnel/icons/square/pinterest-square.svg",
     shortLabel: "Pi",
   },
 ];
@@ -92,19 +87,29 @@ export const companyStory = {
   sections: [
     {
       heading: "OUR ORIGIN STORY",
-      body: "With over 30 years of experience developing multiple businesses, we combine proven business principles with modern AI-powered technology.",
+      body: [
+        "With over 30 years of experience developing multiple business, we are bringing tried business principles together with modern technology utilizing AI.",
+      ],
     },
     {
       heading: "INDUSTRY EXPERIENCE",
-      body: "Our founders have operated businesses in financial services and contracting, bringing practical expertise from real operating environments.",
+      body: [
+        "Having operated businesses in the financial services and contracting industries our founders bring a history of experience and expertise unparalleled, not too many situations that we haven't encountered.",
+      ],
     },
     {
       heading: "OUR MISSION",
-      body: "To build value in our business by helping others increase the value of their business.",
+      body: [
+        "To build value in our business by helping others increase the value of their business.",
+        "As Zig Ziglar said, “you can have everything you want if you will help others get everything that they want.”",
+      ],
     },
     {
       heading: "OUR VISION",
-      body: "We help companies get seen in the market and build systems that create sustainable revenue by helping customers get what they want.",
+      body: [
+        "We heard the story from a very young age about This Little Piggy went to Market, This Little Piggy stayed home, this little piggy had roast beef, this little piggy had none.",
+        "What we learned from this story is that if we don't go to market we can't eat roast beef. We aim to bring you to a place in the market where you will get noticed and help you build systems to create revenue by helping others get what they want.",
+      ],
     },
   ],
 };
@@ -113,20 +118,42 @@ export const about = {
   heading: "We Help Customers Succeed!",
   introLabel: "About Us",
   values: [
-    "Professionalism at Every Level. Our communication is deliberate and respectful.",
-    "Trust and Reliability. Our operations are rooted in sound judgment and dependable outcomes.",
-    "Discreet and Purpose-Driven. We create value through structured, intentional investments.",
-    "Visual and Operational Stability. Stability is our signature in both online presence and execution.",
+    {
+      heading: "Professionalism at Every Level",
+      body: "Our communication is deliberate and respectful.",
+    },
+    {
+      heading: "Trust and Reliability",
+      body: "Our operations are rooted in sound judgment and dependable outcomes.",
+    },
+    {
+      heading: "Discreet and Purpose-Driven",
+      body: "We create value through structured, intentional investments.",
+    },
+    {
+      heading: "Visual and Operational Stability",
+      body: "Stability is our signature in both online presence and execution.",
+    },
   ],
 };
 
 export const serviceItems = [
-  "Website Development",
-  "Logo Development",
-  "Email Marketing, SMS Marketing, AI Marketing",
-  "Long-Term Asset Development - marketing as a cumulative asset",
-  "Administrative education for marketing",
-  "Educational program to help business owners build businesses, not just jobs",
+  {
+    title: "Website Development",
+  },
+  {
+    title: "Logo Development",
+  },
+  {
+    title: "Email Marketing, SMS Marketing, AI Marketing",
+  },
+  {
+    title: "Long-Term Asset Development - marketing as a cumulative asset",
+  },
+  {
+    title: "Administrative education for marketing",
+    description: "Educational program to help business owners build businesses, not just jobs",
+  },
 ];
 
 export const pricingIntro = {
@@ -146,14 +173,12 @@ export const pricingIntro = {
 export const pricingPlans: PricingPlan[] = [
   {
     name: "Starter Offer",
-    subtitle:
-      "Establish your essential online presence with a done-for-you 3-page website.",
+    subtitle: "Establish your essential online presence with a done-for-you 3-page website.",
     freePeriod: "Free for 6 months",
     monthlyPrice: "$50.00/mo",
     features: ["3-page website done for you", "2 revisions included"],
     ctaLabel: "Choose Starter",
-    ctaHref:
-      "https://tlppublishing.com/website-creation-form-starter-offer-plan",
+    ctaHref: "https://tlppublishing.com/website-creation-form-starter-offer-plan",
   },
   {
     name: "The Launchpad",
@@ -167,8 +192,7 @@ export const pricingPlans: PricingPlan[] = [
       "Choose 1: Email Marketing, 2-Way SMS/Call Marketing, Booking & Appointment, Call Tracking, Surveys & Forms, Tracking & Analytics, Communities, or Chatbot",
     ],
     ctaLabel: "Choose LAUNCHPAD",
-    ctaHref:
-      "https://tlppublishing.com/website-creation-form-the-launchpad-plan",
+    ctaHref: "https://tlppublishing.com/website-creation-form-the-launchpad-plan",
   },
   {
     name: "The Spotlight",
@@ -182,8 +206,7 @@ export const pricingPlans: PricingPlan[] = [
       "Choose 2: Email Marketing, 2-Way SMS/Call Marketing, Booking & Appointment, Call Tracking, Surveys & Forms, Tracking & Analytics, Communities, or Chatbot",
     ],
     ctaLabel: "Choose Spotlight",
-    ctaHref:
-      "https://tlppublishing.com/website-creation-form-the-spotlight-plan",
+    ctaHref: "https://tlppublishing.com/website-creation-form-the-spotlight-plan",
   },
   {
     name: "The Empire Suite",
@@ -197,8 +220,7 @@ export const pricingPlans: PricingPlan[] = [
       "Full access to all listed marketing features",
     ],
     ctaLabel: "Choose Empire Suite",
-    ctaHref:
-      "https://tlppublishing.com/website-creation-form-the-empire-suite-plan",
+    ctaHref: "https://tlppublishing.com/website-creation-form-the-empire-suite-plan",
   },
 ];
 
@@ -217,7 +239,6 @@ export const contact = {
 };
 
 export const footer = {
-  legal:
-    "Copyright 2026 TLP MARKETING LLC doing business as TLP Publishing. All rights reserved.",
+  legal: "Copyright 2026 TLP MARKETING LLC doing business as TLP Publishing. All rights reserved.",
   privacyHref: "https://tlppublishing.com/privacypolicy-termsandconditions",
 };

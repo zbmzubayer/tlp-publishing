@@ -6,7 +6,7 @@ export function SocialLinks({ className }: React.ComponentProps<"ul">) {
       {socialLinks.map((item) => (
         <li key={item.label}>
           <a
-            className={`inline-flex h-9 w-9 items-center justify-center `.trim()}
+            className="inline-flex h-9 w-9 items-center justify-center"
             href={item.href}
             target="_blank"
             rel="noreferrer noopener"
