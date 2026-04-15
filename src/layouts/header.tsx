@@ -1,10 +1,19 @@
+import { headers } from "next/headers";
 import Link from "next/link";
+import { UserAvatarDropdown } from "@/components/auth/user-avatar-dropdown";
 import { brand, navLinks } from "@/components/site-content";
 import { SocialLinks } from "@/components/social-links";
 import { buttonVariants } from "@/components/ui/button";
+import { auth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
-export function Header() {
+export async function Header() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  const user = session?.user;
+
   return (
     <header className="sticky top-0 z-50 flex h-16 items-center bg-[#07142D] text-white">
       <div className="container flex w-full items-center justify-between gap-6">
@@ -23,9 +32,17 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <Link href="/login" className={cn(buttonVariants({ variant: "secondary", size: "lg" }))}>
-            Login
-          </Link>
+
+          {user ? (
+            <UserAvatarDropdown user={user} />
+          ) : (
+            <Link
+              href="/login"
+              className={cn(buttonVariants({ variant: "secondary", size: "lg" }))}
+            >
+              Login
+            </Link>
+          )}
         </nav>
 
         <div className="hidden md:flex">

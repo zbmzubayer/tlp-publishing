@@ -3,8 +3,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { registerService } from "@/actions/auth.action";
 import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -12,16 +14,17 @@ import { Spinner } from "@/components/ui/spinner";
 import { type RegisterDto, registerSchema } from "@/validations/auth.dto";
 
 export function RegisterForm() {
+  const router = useRouter();
   const form = useForm<RegisterDto>({
     resolver: zodResolver(registerSchema),
     defaultValues: { firstName: "", lastName: "", email: "", password: "", confirm_password: "" },
   });
 
   const { mutateAsync } = useMutation({
-    // mutationFn: registerService,
+    mutationFn: registerService,
     onSuccess: () => {
-      toast.success("Registered successfully", { description: "Welcome!" });
-      // navigate("/login");
+      toast.success("Registration successful", { description: "Your account has been created" });
+      router.push("/");
     },
     onError: (error) => {
       toast.error("Registration failed", {
@@ -31,8 +34,7 @@ export function RegisterForm() {
   });
 
   const onSubmit = async (data: RegisterDto) => {
-    console.log(data);
-    // await mutateAsync(data);
+    await mutateAsync(data);
   };
 
   return (

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Lato, Open_Sans } from "next/font/google";
+import { Toaster } from "sonner";
 import { TanstackQueryProvider } from "@/providers/TanstackQueryProvider";
 
 import "./globals.css";
@@ -23,14 +24,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${openSans.variable} ${lato.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${openSans.variable} ${lato.variable} h-full antialiased`}
+    >
       <body className="flex min-h-full flex-col">
+        <Toaster richColors />
         <TanstackQueryProvider>{children}</TanstackQueryProvider>
-        <script
+        {/* <script
           src="https://widgets.leadconnectorhq.com/loader.js"
           data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
           data-widget-id="69b449dc3cf1bd8bd94fbfbf"
-        ></script>
+        ></script> */}
       </body>
     </html>
   );

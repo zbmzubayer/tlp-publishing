@@ -3,8 +3,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { loginService } from "@/actions/auth.action";
 import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -12,15 +14,19 @@ import { Spinner } from "@/components/ui/spinner";
 import { type LoginDto, loginSchema } from "@/validations/auth.dto";
 
 export function LoginForm() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
   });
 
   const { mutateAsync } = useMutation({
-    // mutationFn: loginService,
+    mutationFn: loginService,
     onSuccess: () => {
-      /* Set authentication state */
+      toast.success("Login successful", { description: "Welcome back!" });
+      const returnTo = searchParams.get("returnTo") ?? "/";
+      router.push(returnTo);
     },
     onError: (error) => {
       toast.error("Login failed", {
@@ -30,8 +36,7 @@ export function LoginForm() {
   });
 
   const onSubmit = async (data: LoginDto) => {
-    console.log(data);
-    // await mutateAsync(data);
+    await mutateAsync(data);
   };
 
   return (
