@@ -3,6 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 
 const AUTH_ROUTES = ["/login", "/register"];
+const PROTECTED_ROUTES = ["/website", "/website/:path*"];
 
 export async function proxy(request: NextRequest) {
   const session = await auth.api.getSession({
@@ -16,6 +17,8 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(
         new URL(`/login?returnTo=${encodeURIComponent(returnTo)}`, request.url),
       );
+    } else {
+      return;
     }
   } else {
     // TODO: Protect against authenticated users accessing auth routes like /login and /register
@@ -23,7 +26,6 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
-
   return NextResponse.next();
 }
 
@@ -37,9 +39,10 @@ export const config = {
      * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
      * Feel free to modify this pattern to include more paths.
      */
-    // "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-    "/website/:path*", // Apply auth middleware to all routes under /website
-    "/login",
-    "/register",
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    // "/",
+    // "/website/:path*", // Apply auth middleware to all routes under /website
+    // "/login",
+    // "/register",
   ],
 };

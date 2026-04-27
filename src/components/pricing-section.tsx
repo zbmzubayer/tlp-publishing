@@ -1,9 +1,16 @@
-import { PricingCard } from "./pricing-card";
-import { pricingFootnotes, pricingPlans } from "./site-content";
+import type Stripe from "stripe";
+import { PricingCard } from "@/components/pricing-card";
+import { stripe } from "@/lib/stripe";
+import { pricingFootnotes } from "./site-content";
 
-export function PricingSection() {
-  const firstRow = pricingPlans.slice(0, 2);
-  const secondRow = pricingPlans.slice(2, 4);
+export async function PricingSection() {
+  const products = await stripe.prices.list({
+    active: true,
+    type: "recurring",
+    expand: ["data.product"],
+  });
+
+  console.log(console.log(products));
 
   return (
     <section id="pricing" className="bg-[#188BF6]">
@@ -17,7 +24,21 @@ export function PricingSection() {
           </h2>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
+        <div className="mt-10 grid grid-cols-2 gap-6">
+          {products.data.map((item) => (
+            <PricingCard
+              key={item.id}
+              price={{
+                priceId: item.id,
+                product: item.product as Stripe.Product,
+                unit_amount: item.unit_amount || 0,
+                interval: item.recurring?.interval || "month",
+              }}
+            />
+          ))}
+        </div>
+
+        {/* <div className="mt-10 grid gap-6 md:grid-cols-2">
           {firstRow.map((plan) => (
             <PricingCard key={plan.name} plan={plan} />
           ))}
@@ -27,7 +48,7 @@ export function PricingSection() {
           {secondRow.map((plan) => (
             <PricingCard key={plan.name} plan={plan} />
           ))}
-        </div>
+        </div> */}
 
         <div className="mt-12 space-y-6 rounded-md bg-[#1549B2] p-7 text-white">
           {pricingFootnotes.map((item) => (

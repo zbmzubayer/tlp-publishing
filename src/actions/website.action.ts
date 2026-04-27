@@ -42,3 +42,19 @@ export async function getWebsiteById(id: string) {
     return notFound();
   }
 }
+
+export async function getAllAuthUserWebsite() {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session?.user) {
+    throw new Error("Unauthorized");
+  }
+  try {
+    const websites = await prisma.website.findMany({
+      where: { userId: session.user.id },
+    });
+    return websites;
+  } catch (error) {
+    console.error("Error fetching websites by user ID:", error);
+    return [];
+  }
+}

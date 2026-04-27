@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import { TanstackQueryProvider } from "@/providers/TanstackQueryProvider";
 
 import "./globals.css";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const openSans = Open_Sans({
   variable: "--font-open-sans",
@@ -31,7 +32,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     >
       <body className="flex min-h-full flex-col">
         <Toaster richColors />
-        <TanstackQueryProvider>{children}</TanstackQueryProvider>
+        <TooltipProvider>
+          <TanstackQueryProvider>{children}</TanstackQueryProvider>
+        </TooltipProvider>
         {/* <script
           src="https://widgets.leadconnectorhq.com/loader.js"
           data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"

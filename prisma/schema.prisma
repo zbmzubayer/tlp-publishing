@@ -16,22 +16,25 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  profile  Profile?
-  sessions Session[]
-  accounts Account[]
-  websites Website[]
+  profile       Profile?
+  sessions      Session[]
+  accounts      Account[]
+  websites      Website[]
+  subscriptions Subscription[]
+  payments      Payment[]
 
   @@map("user")
 }
 
 model Profile {
-  id           String   @id @default(uuid()) @db.Uuid
-  firstName    String
-  lastName     String?
-  ghlContactId String?  @unique
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  userId       String   @unique @db.Uuid
+  id               String   @id @default(uuid()) @db.Uuid
+  firstName        String
+  lastName         String?
+  ghlContactId     String?  @unique
+  stripeCustomerId String?  @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  userId           String   @unique @db.Uuid
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -101,4 +104,86 @@ model Website {
 
   @@index([userId])
   @@map("website")
+}
+
+model Plan {
+  id              String   @id @default(uuid()) @db.Uuid
+  stripeProductId String // e.g. prod_xxxxxxxxxx
+  stripePriceId   String   @unique // e.g. price_xxxxxxxxxx
+  name            String // e.g. "Pro", "Enterprise"
+  description     String?
+  amount          Int // in cents e.g. 1000 = $10.00
+  currency        String   @default("usd")
+  interval        String // monthly or yearly
+  intervalCount   Int      @default(1)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  subscriptions Subscription[]
+
+  @@map("plans")
+}
+
+model Subscription {
+  id                   String    @id @default(uuid()) @db.Uuid
+  stripeCustomerId     String
+  stripeSubscriptionId String    @unique // e.g. sub_xxxxxxxxxx
+  status               String
+  currentPeriodStart   DateTime
+  currentPeriodEnd     DateTime
+  cancelAtPeriodEnd    Boolean   @default(false)
+  canceledAt           DateTime?
+  trialStart           DateTime?
+  trialEnd             DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  planId               String    @db.Uuid
+  userId               String    @db.Uuid
+
+  // Relations
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan     Plan      @relation(fields: [planId], references: [id])
+  payments Payment[]
+
+  @@index([stripeCustomerId])
+  @@index([planId])
+  @@index([userId])
+  @@map("subscription")
+}
+
+model Payment {
+  id                    String   @id @default(uuid()) @db.Uuid
+  stripeCustomerId      String
+  subscriptionId        String?  @db.Uuid
+  stripePaymentIntentId String?  @unique // e.g. pi_xxxxxxxxxx
+  stripeInvoiceId       String?  @unique // e.g. in_xxxxxxxxxx
+  amount                Int // in cents
+  currency              String   @default("usd")
+  status                String
+  receiptUrl            String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  userId                String   @db.Uuid
+
+  // Relations
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscription Subscription? @relation(fields: [subscriptionId], references: [id])
+
+  @@index([stripeCustomerId])
+  @@index([subscriptionId])
+  @@index([userId])
+  @@map("payment")
+}
+
+model StripeWebhookEvent {
+  id            String    @id @default(uuid()) @db.Uuid
+  stripeEventId String    @unique // Stripe event ID e.g. evt_xxxxxxxxxx
+  type          String // e.g. "customer.subscription.created"
+  payload       Json // full raw event stored for debugging
+  processedAt   DateTime?
+  createdAt     DateTime  @default(now())
+
+  @@map("webhook_event")
 }

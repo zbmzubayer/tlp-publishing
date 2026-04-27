@@ -1,7 +1,8 @@
 "use client";
 
 import type { User } from "better-auth";
-import { LogOutIcon, UserCircle } from "lucide-react";
+import { GlobeIcon, LogOutIcon, UserCircle } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -38,7 +39,12 @@ export function UserAvatarDropdown({ user }: { user: User }) {
             {user.email}
           </DropdownMenuLabel>
         </DropdownMenuGroup>
-        {/* <DropdownMenuItem>Profile</DropdownMenuItem> */}
+        <DropdownMenuItem asChild>
+          <Link href="/websites" className="w-full cursor-pointer">
+            <GlobeIcon className="me-2" />
+            My websites
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         {/* <DropdownMenuItem asChild>
           <LogoutButton variant="destructive" className="w-full">
