@@ -13,7 +13,8 @@
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
-    "gen-types": "npx supabase gen types typescript --project-id ecosxynpylhgdboniflk --schema public > ./src/lib/supabase/database.types.ts"
+    "gen-types": "npx supabase gen types typescript --project-id ecosxynpylhgdboniflk --schema public > ./src/lib/supabase/database.types.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.88.0",
